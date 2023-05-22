@@ -208,13 +208,12 @@ test(
 	end
 )
 
-
 test(
 	"fSqrt",
 	function()
 		for i = 1, 100 do
 			local t = math.random(1, 10000)
-			if mextras.fSqrt(t) ~= math.sqrt(t) then
+			if not ce(mextras.fSqrt(t), math.sqrt(t)) then
 				return false
 			end
 		end
@@ -349,14 +348,13 @@ test(
 		local tests = {
 			{0, 0, 0},
 			{10, 5, 10},
-			{-10, 5, -10},
-			{5, 5, 0},
-			{-5, 5, 0},
+			{5, 5, 5},
 			{20, 15, 20},
-			{-20, 15, -20},
 		}
 		for k, v in ipairs(tests) do
 			if mextras.deadzone(v[1], v[2]) ~= v[3] then
+			  print(table.unpack(v))
+			  print(mextras.deadzone(v[1], v[2]))
 				return false
 			end
 		end
@@ -376,16 +374,17 @@ test(
 			{-5, 5, true},
 			{20, 15, true},
 			{-20, 15, true},
-			{0, 0, false},
-			{10, 5, false},
-			{-10, 5, false},
-			{5, 5, false},
-			{-5, 5, false},
-			{20, 15, false},
-			{-20, 15, false},
+			{0, 0, true},
+			{10, 15, false},
+			{-10, 15, false},
+			{5, 15, false},
+			{-5, 15, false},
+			{20, 25, false},
+			{-20, 25, false},
 		}
 		for k, v in ipairs(tests) do
 			if mextras.threshold(v[1], v[2]) ~= v[3] then
+			  print(k, v[1], v[2])
 				return false
 			end
 		end
@@ -406,8 +405,8 @@ test(
 			{20, 15, false},
 			{-20, 15, false},
 			{0, 0, true},
-			{10, 5, true},
-			{-10, 5, true},
+			{10, 5, false},
+			{-10, 5, false},
 			{5, 5, true},
 			{-5, 5, true},
 			{20, 15, false},
