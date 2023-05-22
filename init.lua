@@ -42,7 +42,6 @@ end
 
 function mextras.converge(inp, toNumber, amount, stopper)
 	-- this takes input number, and moves it towards toNumber by amount.  Can be needing to move up or down.
-	--! impliment stopper to not overshoot toNumber
 	local dir = mextras.sign(toNumber - inp)
 	local n = inp + (amount * dir)
 
@@ -109,6 +108,7 @@ function mextras.ave(...)
 	return tAverage({...})
 
 end
+mextras.average = mextras.ave
 
 function mextras.lerp(low, high, progress)
 	return low * (1 - progress) + high * progress

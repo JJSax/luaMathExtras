@@ -17,6 +17,11 @@ local function test(label, test, expect)
 	)
 end
 
+local function ce(v1, v2)
+	-- close enough
+	return math.abs(v1 - v2) < 0.0000000001
+end
+
 
 test(
 	"factorial",
@@ -257,11 +262,7 @@ test(
 			{-math.pi * 2, -360},
 		}
 		for k, v in ipairs(tests) do
-			if mextras.degrees(v[1]) ~= v[2] then
-				-- print(k, v[1], mextras.degrees(v[1]))
-				--! Dealing with floating point shinanigans!!!
-				print(mextras.degrees(v[1]), v[2])
-				print(mextras.degrees(v[1]) - v[2])
+			if not ce(mextras.degrees(v[1]), v[2]) then
 				return false
 			end
 		end
@@ -300,42 +301,127 @@ test(
 test(
 	"average",
 	function()
-		-- mextras.average()
-		return false
+		local tests = {
+			{{1,2,3}, 2},
+			{{{1,2,3}}, 2},
+			{{15,20,31}, 22},
+			{{{15,20,31}}, 22},
+			{{20,20,30,33}, 51.5},
+			{{{20,20,30,33}}, 51.5}
+		}
+		for k, v in ipairs(tests) do
+			if not mextras.average(table.unpack(v[1])) == v[2] then
+				return false
+			end
+		end
+
+		return true
 	end
 )
 
 test(
 	"lerp",
 	function()
-		-- mextras.lerp()
-		return false
+		local tests = {
+			{0, 100, 0, 0},
+			{0, 100, 0.25, 25},
+			{0, 100, 0.5, 50},
+			{0, 100, 0.75, 75},
+			{0, 100, 1, 100},
+			{-50, 50, 0, -50},
+			{-50, 50, 0.5, 0},
+			{-50, 50, 1, 50},
+		}
+		for k, v in ipairs(tests) do
+			if mextras.lerp(v[1], v[2], v[3]) ~= v[4] then
+				return false
+			end
+		end
+
+		return true
 	end
 )
 
 test(
 	"deadzone",
 	function()
-		-- mextras.deadzone()
-		return false
+		local tests = {
+			{0, 0, 0},
+			{10, 5, 10},
+			{-10, 5, -10},
+			{5, 5, 0},
+			{-5, 5, 0},
+			{20, 15, 20},
+			{-20, 15, -20},
+		}
+		for k, v in ipairs(tests) do
+			if mextras.deadzone(v[1], v[2]) ~= v[3] then
+				return false
+			end
+		end
+
+		return true
 	end
 )
 
 test(
 	"threshold",
 	function()
-		-- mextras.threshold()
-		return false
+		local tests = {
+			{0, 0, true},
+			{10, 5, true},
+			{-10, 5, true},
+			{5, 5, true},
+			{-5, 5, true},
+			{20, 15, true},
+			{-20, 15, true},
+			{0, 0, false},
+			{10, 5, false},
+			{-10, 5, false},
+			{5, 5, false},
+			{-5, 5, false},
+			{20, 15, false},
+			{-20, 15, false},
+		}
+		for k, v in ipairs(tests) do
+			if mextras.threshold(v[1], v[2]) ~= v[3] then
+				return false
+			end
+		end
+
+		return true
 	end
 )
 
 test(
 	"tolerance",
 	function()
-		-- mextras.tolerance()
-		return false
+		local tests = {
+			{0, 0, true},
+			{10, 5, false},
+			{-10, 5, false},
+			{5, 5, true},
+			{-5, 5, true},
+			{20, 15, false},
+			{-20, 15, false},
+			{0, 0, true},
+			{10, 5, true},
+			{-10, 5, true},
+			{5, 5, true},
+			{-5, 5, true},
+			{20, 15, false},
+			{-20, 15, false},
+		}
+		for k, v in ipairs(tests) do
+			if mextras.tolerance(v[1], v[2]) ~= v[3] then
+				return false
+			end
+		end
+
+		return true
 	end
 )
+
 
 for k,v in ipairs(history) do
 	print(k, v)
