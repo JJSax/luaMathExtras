@@ -306,10 +306,11 @@ test(
 			{{{1,2,3}}, 2},
 			{{15,20,31}, 22},
 			{{{15,20,31}}, 22},
-			{{20,20,30,33}, 51.5},
-			{{{20,20,30,33}}, 51.5}
+			{{20,20,30,33}, 25.75},
+			{{{20,20,30,33}}, 25.75}
 		}
 		for k, v in ipairs(tests) do
+			print(mextras.average(table.unpack(v[1])))
 			if not mextras.average(table.unpack(v[1])) == v[2] then
 				return false
 			end

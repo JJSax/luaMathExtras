@@ -101,11 +101,11 @@ end
 
 function mextras.ave(...)
 
-	if type((...)[1]) == "table" then
-		return tAverage((...)[1])
+	if type(...) == "number" then
+		return tAverage({...})
 	end
 
-	return tAverage({...})
+	return tAverage(...)
 
 end
 mextras.average = mextras.ave
@@ -123,7 +123,7 @@ function mextras.threshold(value, threshold)
 end
 
 function mextras.tolerance(value, threshold)
-	return abs(value) <= threshold
+	return math.abs(value) <= threshold
 end
 
 return mextras
