@@ -186,6 +186,34 @@ test(
 )
 
 test(
+	"difference",
+	function()
+		local tests = {
+			{1, 5, 4},
+			{2, 5, 3},
+			{11, 5, 6},
+			{321, 345, 24},
+			{431, 345, 86},
+			{231, 345, 114},
+			{231, 587, 356},
+			{-2341, 235, 2576},
+			{-2341, -345, 1996},
+			{1243, -235, 1478},
+			{-834, 2345, 3179},
+			{71, 53, 18},
+			{81, 5, 76}
+		}
+
+		for k,v in ipairs(tests) do
+			if not mextras.difference(v[1], v[2]) == v[3] then
+				return false
+			end
+		end
+		return true
+	end
+)
+
+test(
 	"center",
 	function()
 		local tests = {

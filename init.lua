@@ -56,10 +56,14 @@ end
 -- example x = 5 wrapNum(x, 1, 1, 5).  x + 1 is out of range so it will loop back to 1
 function mextras.wrap(x, d, a, b)
 	-- credit https://pymorton.wordpress.com/2015/02/16/wrap-integer-values-to-fixed-range/
-	-- x must already be in range to work.
 	x = x + d
 	return (x - a) % (b - a + 1) + a
 end
+
+function mextras.difference(f, s)
+	return math.abs(f - s)
+end
+mextras.diff = mextras.difference
 
 function mextras.center(first, second)
 	return (second - first) / 2
@@ -132,6 +136,14 @@ end
 
 function mextras.tolerance(value, threshold)
 	return math.abs(value) <= threshold
+end
+
+function mextras.angle(x1, y1, x2, y2)
+	return math.atan2(y2 - y1, x2 - x1)
+end
+
+function mextras.vector(angle, magnitude)
+	return math.cos(angle) * magnitude, math.sin(angle) * magnitude
 end
 
 return mextras
