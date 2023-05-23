@@ -53,6 +53,14 @@ function mextras.converge(inp, toNumber, amount, stopper)
 	return n
 end
 
+-- example x = 5 wrapNum(x, 1, 1, 5).  x + 1 is out of range so it will loop back to 1
+function mextras.wrap(x, d, a, b)
+	-- credit https://pymorton.wordpress.com/2015/02/16/wrap-integer-values-to-fixed-range/
+	-- x must already be in range to work.
+	x = x + d
+	return (x - a) % (b - a + 1) + a
+end
+
 function mextras.center(first, second)
 	return (second - first) / 2
 end
