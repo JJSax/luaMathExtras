@@ -1,9 +1,13 @@
 
 
-local mextras = {
-	_VERSION = "0.0.1"
-}
-mextras.__index = math
+local mextras = {}
+mextras._VERSION = "0.0.2"
+
+setmetatable(mextras, {
+	__index = function(_, key)
+		return math[key]
+	end
+})
 
 mextras.tau = math.pi * 2
 mextras.phi = (1 + math.sqrt(5)) / 2
