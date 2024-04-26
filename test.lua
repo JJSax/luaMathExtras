@@ -317,7 +317,7 @@ test(
 	end
 )
 
-
+---deprecated, now testing lua function
 test(
 	"radians",
 	function()

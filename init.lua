@@ -103,9 +103,9 @@ function mextras.degrees(radians)
 	return radians * (180 / math.pi)
 end
 
-function mextras.radians(degrees)
-	return degrees * (math.pi / 180)
-end
+---@deprecated use lua's math.rad.  Duplicate functionality
+--- Will be removed sometime after 6/01/2024
+mextras.radians = math.rad
 
 local function tAverage(tabOfValues)
 	local sum = 0
