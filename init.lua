@@ -73,17 +73,15 @@ function mextras.center(first, second)
 	return (second - first) / 2
 end
 
-function mextras.map(n, start1, stop1, start2, stop2, clamp)
-	-- translated from the P5 library.
-	local mapped = (n - start1) / (stop1 - start1) * (stop2 - start2) + start2
-	if not clamp then
-		return mapped
+function mextras.map(n, inRangeMin, inRangeMax, outRangeMin, outRangeMax, clamp)
+	local percentInto = (n - inRangeMin) / inRangeMax - inRangeMin
+	local out = outRangeMin + (outRangeMax - outRangeMin) * percentInto
+
+	if clamp then
+		if out < outRangeMin then return outRangeMin end
+		if out > outRangeMax then return outRangeMax end
 	end
-	if start2 < stop2 then
-		return mextras.clamp(mapped, start2, stop2)
-	else
-		return mextras.clamp(mapped, stop2, start2)
-	end
+	return out
 end
 
 function mextras.fSqrt(n)
