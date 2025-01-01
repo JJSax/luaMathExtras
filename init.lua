@@ -1,7 +1,7 @@
 
 
 local mextras = {}
-mextras._VERSION = "0.0.2"
+mextras._VERSION = "0.0.3"
 
 setmetatable(mextras, {
 	__index = function(_, key)
@@ -74,7 +74,7 @@ function mextras.center(first, second)
 end
 
 function mextras.map(n, inRangeMin, inRangeMax, outRangeMin, outRangeMax, clamp)
-	local percentInto = (n - inRangeMin) / inRangeMax - inRangeMin
+	local percentInto = (n - inRangeMin) / (inRangeMax - inRangeMin)
 	local out = outRangeMin + (outRangeMax - outRangeMin) * percentInto
 
 	if clamp then
@@ -100,10 +100,6 @@ end
 function mextras.degrees(radians)
 	return radians * (180 / math.pi)
 end
-
----@deprecated use lua's math.rad.  Duplicate functionality
---- Will be removed sometime after 6/01/2024
-mextras.radians = math.rad
 
 local function tAverage(tabOfValues)
 	local sum = 0
