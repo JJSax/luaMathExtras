@@ -356,8 +356,8 @@ test(
 			{{{20,20,30,33}}, 25.75}
 		}
 		for k, v in ipairs(tests) do
-			print(mextras.average(table.unpack(v[1])))
-			if not mextras.average(table.unpack(v[1])) == v[2] then
+			print(mextras.average((table.unpack or unpack)(v[1])))
+			if not mextras.average((table.unpack or unpack)(v[1])) == v[2] then
 				return false
 			end
 		end
@@ -400,7 +400,7 @@ test(
 		}
 		for k, v in ipairs(tests) do
 			if mextras.deadzone(v[1], v[2]) ~= v[3] then
-			  print(table.unpack(v))
+			  print((table.unpack or unpack)(v))
 			  print(mextras.deadzone(v[1], v[2]))
 				return false
 			end
